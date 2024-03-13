@@ -786,8 +786,8 @@ bool readonly_pgsql_selection::supports_user_details() const {
 bool readonly_pgsql_selection::is_user_blocked(const osm_user_id_t id) {
 
   m.prepare("check_user_blocked",
-    R"(SELECT id FROM "user_blocks" 
-          WHERE "user_blocks"."user_id" = $1 
+    R"(SELECT id FROM "user_blocks"
+          WHERE "user_blocks"."user_id" = $1
             AND (needs_view or ends_at > (now() at time zone 'utc')) LIMIT 1 )");
 
   auto res = m.exec_prepared("check_user_blocked", id);
@@ -848,6 +848,25 @@ std::optional< osm_user_id_t > readonly_pgsql_selection::get_user_id_for_oauth2_
     allow_api_write = false;
     return {};
   }
+}
+
+std::optional<osm_user_id_t> readonly_pgsql_selection::get_user_id_for_tdei_token(
+    const std::string& auth_uid // JWT subject
+) {
+  m.prepare("get_user_id_for_tdei_token",
+    R"(SELECT id as user_id FROM users
+        WHERE auth_provider = 'TDEI'
+          AND auth_uid = $1
+        LIMIT 1
+    )");
+
+  auto res = m.exec_prepared("get_user_id_for_tdei_token", auth_uid);
+
+  if (!res.empty()) {
+    return res[0]["user_id"].as<osm_user_id_t>();
+  }
+
+  return {};
 }
 
 bool readonly_pgsql_selection::is_user_active(const osm_user_id_t id)

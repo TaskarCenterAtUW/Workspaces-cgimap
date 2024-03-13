@@ -606,6 +606,8 @@ struct static_data_selection : public data_selection {
     return {};
   }
 
+  std::optional<osm_user_id_t> get_user_id_for_tdei_token(const std::string& email) override { return {}; }
+
 private:
   template <typename T>
   const std::map<id_version, T> &map_of() const;

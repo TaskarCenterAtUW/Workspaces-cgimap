@@ -31,7 +31,8 @@ if(BUILD_TESTING)
         cgimap_core
         cgimap_staticxml
         Boost::program_options
-        PQXX::PQXX)
+        PQXX::PQXX
+        OpenSSL::SSL)
 
 
     file(GLOB test_core_test_dirs LIST_DIRECTORIES true "${CMAKE_CURRENT_SOURCE_DIR}/*.testcore")
@@ -177,7 +178,8 @@ if(BUILD_TESTING)
             cgimap_apidb
             cgimap_staticxml
             Boost::program_options
-            catch2)
+            catch2
+            OpenSSL::SSL)
 
         add_test(NAME test_apidb_backend_oauth2
             COMMAND pg_virtualenv "$<TARGET_FILE:test_apidb_backend_oauth2>" --db-schema "${CMAKE_CURRENT_SOURCE_DIR}/structure.sql")
@@ -219,7 +221,8 @@ if(BUILD_TESTING)
             cgimap_apidb
             cgimap_staticxml
             Boost::program_options
-            catch2)
+            catch2
+            OpenSSL::SSL)
 
         add_test(NAME test_apidb_backend_changesets
             COMMAND pg_virtualenv "$<TARGET_FILE:test_apidb_backend_changesets>" --db-schema "${CMAKE_CURRENT_SOURCE_DIR}/structure.sql")
@@ -261,7 +264,8 @@ if(BUILD_TESTING)
             cgimap_apidb
             Boost::program_options
             Threads::Threads
-            catch2)
+            catch2
+            OpenSSL::SSL)
 
         add_test(NAME test_apidb_backend_changeset_uploads
             COMMAND pg_virtualenv "$<TARGET_FILE:test_apidb_backend_changeset_uploads>" --db-schema "${CMAKE_CURRENT_SOURCE_DIR}/structure.sql")

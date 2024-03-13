@@ -116,6 +116,9 @@ find_package(fmt 6.0 REQUIRED)
 target_link_libraries(cgimap_common_compiler_options INTERFACE
     $<IF:$<BOOL:${ENABLE_FMT_HEADER}>,fmt::fmt-header-only,fmt::fmt>)
 
+# TDEI Workspaces - we need to link an OpenSSL implementation for JWT-CPP:
+find_package(OpenSSL REQUIRED)
+
 
 ###########################
 # source subdirectories
@@ -141,7 +144,8 @@ target_link_libraries(openstreetmap_cgimap
     cgimap_fcgi
     cgimap_apidb
     Boost::program_options
-    PQXX::PQXX)
+    PQXX::PQXX
+    OpenSSL::SSL)
 
 
 #############################################################
