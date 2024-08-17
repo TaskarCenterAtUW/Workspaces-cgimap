@@ -13,6 +13,7 @@
 #include "cgimap/output_formatter.hpp"
 #include "cgimap/types.hpp"
 #include "cgimap/util.hpp"
+#include "cgimap/workspaces/types.hpp"
 
 #include "cgimap/api06/changeset_upload/changeset_updater.hpp"
 #include "cgimap/api06/changeset_upload/node_updater.hpp"
@@ -66,6 +67,9 @@ public:
     const std::string& subject,
     const std::string& email,
     const std::string& display_name) = 0;
+
+  // TDEI Workspace tenant selection
+  virtual void set_tdei_workspace(const workspace_id_t id) = 0;
 
   /**
    * factory for the creation of data updates. this abstracts away

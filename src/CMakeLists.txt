@@ -67,6 +67,7 @@ target_sources(cgimap_core PRIVATE
     api06/changeset_upload/osmchange_tracking.cpp
 
     workspaces/tdei_auth.cpp
+    workspaces/tenant.cpp
 
     $<$<BOOL:${ENABLE_YAJL}>:json_formatter.cpp>
     $<$<BOOL:${ENABLE_YAJL}>:json_writer.cpp>

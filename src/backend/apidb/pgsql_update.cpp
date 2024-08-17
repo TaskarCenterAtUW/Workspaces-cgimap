@@ -58,13 +58,13 @@ std::string connect_db_str(const po::variables_map &options) {
 } // anonymous namespace
 
 pgsql_update::pgsql_update(Transaction_Owner_Base& to, bool readonly)
-    : m{ to }, 
+    : m{ to },
       m_readonly{ readonly } {
 
   if (is_api_write_disabled())
     return;
 
-  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_nodes 
+  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_nodes
       (
         id bigint NOT NULL DEFAULT nextval('current_nodes_id_seq'::regclass),
         latitude integer NOT NULL,
@@ -79,7 +79,7 @@ pgsql_update::pgsql_update(Transaction_Owner_Base& to, bool readonly)
         ON COMMIT DROP
       )");
 
-  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_ways 
+  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_ways
       (
         id bigint NOT NULL DEFAULT nextval('current_ways_id_seq'::regclass),
         changeset_id bigint NOT NULL,
@@ -91,7 +91,7 @@ pgsql_update::pgsql_update(Transaction_Owner_Base& to, bool readonly)
         ON COMMIT DROP
      )");
 
-  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_relations 
+  m.exec(R"(CREATE TEMPORARY TABLE tmp_create_relations
      (
         id bigint NOT NULL DEFAULT nextval('current_relations_id_seq'::regclass),
         changeset_id bigint NOT NULL,

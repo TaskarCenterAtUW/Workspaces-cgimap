@@ -607,6 +607,7 @@ struct static_data_selection : public data_selection {
   }
 
   std::optional<osm_user_id_t> get_user_id_for_tdei_token(const std::string& email) override { return {}; }
+  void set_tdei_workspace(const workspace_id_t id) override {}
 
 private:
   template <typename T>
